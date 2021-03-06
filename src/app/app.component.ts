@@ -48,19 +48,19 @@ export class AppComponent implements OnInit {
     }
   }
 
-  getBlockColor(rowIndex: number, colIndex: number): string {
-    return this.colorsMatrix[rowIndex][colIndex];
+  getBlockColor(x: number, y: number): string {
+    return this.colorsMatrix[x][y];
   }
 
-  getBlockTextStyles(rowIndex: number, colIndex: number): string {
+  getBlockTextStyles(x: number, y: number): string {
     const centerFix = 'd-flex justify-content-center align-items-center';
-    return this.getBlockColor(rowIndex, colIndex) === this.overlappedPathColor
+    return this.getBlockColor(x, y) === this.overlappedPathColor
       ? `text-warning font-weight-bold ${centerFix}`
       : '';
   }
 
-  getBlockTextContent(rowIndex: number, colIndex: number): string {
-    return this.getBlockColor(rowIndex, colIndex) === this.overlappedPathColor
+  getBlockTextContent(x: number, y: number): string {
+    return this.getBlockColor(x, y) === this.overlappedPathColor
       ? this.overlapedPathContent
       : '.';
   }

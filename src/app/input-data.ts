@@ -1,4 +1,7 @@
 export class InputData {
+  // data -> path[]
+  // path -> segment[]
+  // segment -> [x,y]
   static data = [
     [
       [3, 8],
