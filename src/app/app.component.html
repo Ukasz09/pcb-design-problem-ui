@@ -1,16 +1,20 @@
 <div class="container-fluid bg-secondary vh-100 d-flex align-items-center">
-  <div class="mx-auto my-auto bg-info w-75 h-75">
+  <div class="mx-auto my-auto w-75 h-75">
     <div
-      *ngFor="let item of [].constructor(rowsQty)"
+      *ngFor="let item of [].constructor(rowsQty); let rowIndex = index"
       class="d-flex flex-row bg-light"
       [style.height.%]="blockSize"
     >
       <div
-        *ngFor="let item of [].constructor(columnsQty)"
+        *ngFor="let item of [].constructor(columnsQty); let colIndex = index"
         class="border d-flex justify-content-center align-items-center"
         [style.width.%]="blockSize"
       >
-        <span>.</span>
+        <span
+          class="w-75 h-75 text-center"
+          [style.background-color]="getBlockColor(rowIndex, colIndex)"
+          >.</span
+        >
       </div>
     </div>
   </div>
