@@ -1,13 +1,16 @@
-<div class="container-fluid bg-secondary vh-100">
-  <div class="d-flex align-items-center h-100 w-100">
-    <div class="mx-auto bg-light w-75 h-75">
-      <div *ngFor="let i of test" class="d-flex flex-row" style="height: 6.25%">
-        <div
-          *ngFor="let i of test"
-          class="column d-flex justify-content-center align-items-center"
-        >
-          <span>.</span>
-        </div>
+<div class="container-fluid bg-secondary vh-100 d-flex align-items-center">
+  <div class="mx-auto my-auto bg-info w-75 h-75">
+    <div
+      *ngFor="let item of [].constructor(rowsQty)"
+      class="d-flex flex-row bg-light"
+      [style.height.%]="blockSize"
+    >
+      <div
+        *ngFor="let item of [].constructor(columnsQty)"
+        class="border d-flex justify-content-center align-items-center"
+        [style.width.%]="blockSize"
+      >
+        <span>.</span>
       </div>
     </div>
   </div>
