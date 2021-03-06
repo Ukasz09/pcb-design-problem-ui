@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Constants } from './constants';
+import { InputData } from './input-data';
 
 @Component({
   selector: 'app-root',
@@ -14,34 +15,11 @@ export class AppComponent implements OnInit {
   rowsQty = 16;
   colors = Constants.randomColors;
   colorsMatrix: string[][];
-  input = [
-    [
-      [3, 8],
-      [3, 9],
-      [4, 9],
-      [5, 9],
-      [6, 9],
-      [7, 9],
-    ],
-    [
-      [6, 6],
-      [6, 7],
-      [6, 8],
-      [6, 9],
-      [6, 10],
-    ],
-    [
-      [9, 6],
-      [9, 7],
-      [9, 8],
-    ],
-  ];
+  input = InputData.data;
 
-  /* ------------------------------------------- Getters / setters ------------------------------------------- */
-  get blockSize(): number {
-    return 100 / (this.columnsQty + 1); //+1 becouse of index no
-  }
+  constructor() {}
 
+  /* ------------------------------------------- Methods ------------------------------------------- */
   ngOnInit(): void {
     this.initColorMatrix();
     this.fillMatrixWithColors(this.input);
@@ -85,5 +63,10 @@ export class AppComponent implements OnInit {
     return this.getBlockColor(rowIndex, colIndex) === this.overlappedPathColor
       ? ':('
       : '.';
+  }
+
+  /* ------------------------------------------- Getters / setters ------------------------------------------- */
+  get blockSize(): number {
+    return 100 / (this.columnsQty + 1); //+1 becouse of index no
   }
 }
