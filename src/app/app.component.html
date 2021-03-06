@@ -1,8 +1,8 @@
 <div class="container-fluid bg-secondary vh-100 d-flex align-items-center">
-  <div class="mx-auto my-auto w-75 h-75">
+  <div class="mx-auto my-auto w-75 h-75 bg-dark rounded p-2">
     <div
       *ngFor="let item of [].constructor(rowsQty); let rowIndex = index"
-      class="d-flex flex-row bg-light"
+      class="d-flex flex-row rounded bg-light"
       [style.height.%]="blockSize"
     >
       <div
@@ -11,7 +11,7 @@
         [style.width.%]="blockSize"
       >
         <span
-          class="w-75 h-75 text-center"
+          class="w-75 h-75 text-center rounded"
           [style.background-color]="getBlockColor(rowIndex, colIndex)"
           >.</span
         >
