@@ -1,5 +1,14 @@
-<div class="vw-100">
-  <div *ngFor="let i of test" class="d-flex flex-row">
-    <div *ngFor="let i of test" class="column"></div>
+<div class="container-fluid bg-secondary vh-100">
+  <div class="d-flex align-items-center h-100 w-100">
+    <div class="mx-auto bg-light w-75 h-75">
+      <div *ngFor="let i of test" class="d-flex flex-row" style="height: 6.25%">
+        <div
+          *ngFor="let i of test"
+          class="column d-flex justify-content-center align-items-center"
+        >
+          <span>.</span>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
