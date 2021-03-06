@@ -43,9 +43,11 @@
       >
         <span
           class="w-75 h-75 text-center rounded"
+          [ngClass]="getBlockTextStyles(rowIndex, colIndex)"
           [style.background-color]="getBlockColor(rowIndex, colIndex)"
-          >.</span
         >
+          {{ getBlockTextContent(rowIndex, colIndex) }}
+        </span>
       </div>
     </div>
   </div>

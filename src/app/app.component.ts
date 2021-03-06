@@ -7,6 +7,9 @@ import { Constants } from './constants';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
+  startedColor = 'rgba(0,0,0,0)';
+  overlappedPathColor = '#343A41'; // make sure that no exist path with this color
+  overlapedPathContent = ':(';
   columnsQty = 16;
   rowsQty = 16;
   colors = Constants.randomColors;
@@ -24,6 +27,8 @@ export class AppComponent implements OnInit {
       [6, 6],
       [6, 7],
       [6, 8],
+      [6, 9],
+      [6, 10],
     ],
     [
       [9, 6],
@@ -45,7 +50,7 @@ export class AppComponent implements OnInit {
   private initColorMatrix(): void {
     this.colorsMatrix = new Array(this.rowsQty)
       .fill('')
-      .map(() => new Array(this.columnsQty).fill('rgba(0,0,0,0)'));
+      .map(() => new Array(this.columnsQty).fill(this.startedColor));
   }
 
   private fillMatrixWithColors(paths: number[][][]): void {
@@ -54,7 +59,12 @@ export class AppComponent implements OnInit {
       for (let segment of path) {
         const x = segment[0];
         const y = segment[1];
-        this.colorsMatrix[x][y] = this.colors[pathIndex];
+        const actualColor = this.colorsMatrix[x][y];
+        if (actualColor === this.startedColor) {
+          this.colorsMatrix[x][y] = this.colors[pathIndex];
+        } else {
+          this.colorsMatrix[x][y] = this.overlappedPathColor;
+        }
       }
       pathIndex++;
     }
@@ -62,5 +72,18 @@ export class AppComponent implements OnInit {
 
   getBlockColor(rowIndex: number, colIndex: number): string {
     return this.colorsMatrix[rowIndex][colIndex];
+  }
+
+  getBlockTextStyles(rowIndex: number, colIndex: number): string {
+    const centerFix = 'd-flex justify-content-center align-items-center';
+    return this.getBlockColor(rowIndex, colIndex) === this.overlappedPathColor
+      ? `text-warning font-weight-bold ${centerFix}`
+      : '';
+  }
+
+  getBlockTextContent(rowIndex: number, colIndex: number): string {
+    return this.getBlockColor(rowIndex, colIndex) === this.overlappedPathColor
+      ? ':('
+      : '.';
   }
 }
