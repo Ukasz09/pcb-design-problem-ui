@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
 
   /* ------------------------------------------- Getters / setters ------------------------------------------- */
   get blockSize(): number {
-    return 100 / this.columnsQty;
+    return 100 / (this.columnsQty + 1); //+1 becouse of index no
   }
 
   ngOnInit(): void {

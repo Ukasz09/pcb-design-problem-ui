@@ -1,10 +1,41 @@
 <div class="container-fluid bg-secondary vh-100 d-flex align-items-center">
   <div class="mx-auto my-auto w-75 h-75 bg-dark rounded p-2">
+    <!-- ------------------------------------------- column indexes ------------------------------------------- -->
+    <div
+      class="d-flex flex-row rounded bg-light text-muted"
+      [style.height.%]="blockSize"
+    >
+      <div
+        class="d-flex border justify-content-center align-items-center"
+        [style.width.%]="blockSize"
+      >
+        <span class="w-75 h-75 text-center text-light rounded">*</span>
+      </div>
+      <div
+        *ngFor="let item of [].constructor(columnsQty); let colIndex = index"
+        class="d-flex border justify-content-center align-items-center"
+        [style.width.%]="blockSize"
+      >
+        <span class="w-75 h-75 text-center rounded">{{ colIndex }}</span>
+      </div>
+    </div>
+
+    <!-- ------------------------------------------- content ------------------------------------------- -->
     <div
       *ngFor="let item of [].constructor(rowsQty); let rowIndex = index"
       class="d-flex flex-row rounded bg-light"
       [style.height.%]="blockSize"
     >
+      <!-- ----------------------- row index ---------------------- -->
+      <div
+        class="border d-flex justify-content-center align-items-center"
+        [style.width.%]="blockSize"
+      >
+        <span class="w-75 h-75 text-center rounded text-muted">{{
+          rowIndex
+        }}</span>
+      </div>
+      <!-- ----------------------- content ---------------------- -->
       <div
         *ngFor="let item of [].constructor(columnsQty); let colIndex = index"
         class="border d-flex justify-content-center align-items-center"
