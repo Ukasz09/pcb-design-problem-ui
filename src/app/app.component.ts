@@ -10,7 +10,7 @@ import { InputData } from './input-data';
 export class AppComponent implements OnInit {
   startedColor = 'rgba(0,0,0,0)';
   overlappedPathColor = '#343A41'; // make sure that no exist path with this color
-  overlapedPathContent = ':(';
+  overlapedPathContent = '😥';
   columnsQty = 16;
   rowsQty = 16;
   colors = Constants.randomColors;
@@ -61,7 +61,7 @@ export class AppComponent implements OnInit {
 
   getBlockTextContent(rowIndex: number, colIndex: number): string {
     return this.getBlockColor(rowIndex, colIndex) === this.overlappedPathColor
-      ? ':('
+      ? this.overlapedPathContent
       : '.';
   }
 
