@@ -11,11 +11,11 @@ export class AppComponent implements OnInit {
   startedColor = 'rgba(0,0,0,0)';
   overlappedPathColor = '#343A41'; // make sure that no exist path with this color
   overlapedPathContent = '😥';
-  columnsQty = 16;
-  rowsQty = 16;
+  columnsQty = 25;
+  rowsQty = 25;
   colors = Constants.randomColors;
   colorsMatrix: string[][];
-  input = InputData.data;
+  input: [number, number][][] = InputData.data;
 
   constructor() {}
 
@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
       .map(() => new Array(this.columnsQty).fill(this.startedColor));
   }
 
-  private fillMatrixWithColors(paths: number[][][]): void {
+  private fillMatrixWithColors(paths: [number, number][][]): void {
     let pathIndex = 0;
     for (let path of paths) {
       for (let segment of path) {
@@ -59,11 +59,11 @@ export class AppComponent implements OnInit {
       : '';
   }
 
-  getBlockTextContent(x: number, y: number): string {
-    return this.getBlockColor(x, y) === this.overlappedPathColor
-      ? this.overlapedPathContent
-      : '.';
-  }
+  // getBlockTextContent(x: number, y: number): string {
+  //   return this.getBlockColor(x, y) === this.overlappedPathColor
+  //     ? this.overlapedPathContent
+  //     : '';
+  // }
 
   /* ------------------------------------------- Getters / setters ------------------------------------------- */
   get blockSize(): number {
