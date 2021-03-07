@@ -64,7 +64,8 @@ export class AppComponent implements OnInit {
           // }
           // else {
           x += this.columnsQty / 2;
-          y += this.rowsQty / 2;
+          // y += this.rowsQty / 2;
+          y = -1 * (y - this.rowsQty / 2);
           const actualColor = this.colorsMatrix[x][y];
           if (actualColor === this.startedColor) {
             this.colorsMatrix[x][y] = this.colors[pathIndex];
@@ -90,7 +91,9 @@ export class AppComponent implements OnInit {
   getBlockTextContent(x: number, y: number): string {
     const indexOfPath = this.getIndexOfPath([
       x - this.columnsQty / 2,
-      y - this.rowsQty / 2,
+      // y,
+      // y - this.rowsQty / 2,
+      -1 * (y - this.rowsQty / 2),
     ]);
     if (indexOfPath !== -1) {
       return indexOfPath.toString();

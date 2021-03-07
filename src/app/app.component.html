@@ -41,7 +41,7 @@
           <span
             class="w-75 h-75 text-center rounded text-muted"
             style="font-size: 0.7rem"
-            >{{ y - rowsQty / 2 }}</span
+            >{{ rowsQty / 2 - y }}</span
           >
         </div>
         <!-- ----------------------- content ---------------------- -->
@@ -69,8 +69,8 @@
         style="cursor: pointer"
         [style.background-color]="
           getBlockColor(
-            endpointPair[0][0] + rowsQty / 2,
-            endpointPair[0][1] + columnsQty / 2
+            endpointPair[0][0] + columnsQty / 2,
+            -1 * (endpointPair[0][1] - rowsQty / 2)
           )
         "
         (mouseenter)="onLegendBlockMouseEnter(i)"
