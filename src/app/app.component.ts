@@ -10,32 +10,41 @@ import { InputData } from './input-data';
 export class AppComponent implements OnInit {
   startedColor = 'rgba(0,0,0,0)';
   overlappedPathColor = '#343A41'; // make sure that no exist path with this color
-  overlapedPathContent = '😥';
+  overlapedPathContent = 'x';
   columnsQty = 25;
   rowsQty = 25;
   colors = Constants.randomColors;
   colorsMatrix: string[][];
-  // input: [number, number][][] = InputData.data;
-  input: [number, number][][];
-  // showOnly: number = undefined;
-  showOnly: number = 7;
+  paths: [number, number][][] = InputData.data;
+  // displayedPaths = this.paths;
+  endpoints = InputData.enpoints;
+  actualDisplayedPathId = undefined;
 
   constructor() {}
 
   /* ------------------------------------------- Methods ------------------------------------------- */
   ngOnInit(): void {
-    this.initInput();
-    this.initColorMatrix();
-    this.fillMatrixWithColors(this.input);
+    this.resetPaths(undefined);
   }
 
-  private initInput(): void {
-    if (this.showOnly !== undefined) {
-      this.input = [InputData.data[this.showOnly]];
-    } else {
-      this.input = InputData.data;
-    }
+  /**
+   *
+   * @param displayedPathId Id of displayed path or undefined for all
+   */
+  private resetPaths(displayedPathId: number): void {
+    this.actualDisplayedPathId = displayedPathId;
+    this.initColorMatrix();
+    // this.resetDisplayedPaths(displayedPathId);
+    this.fillMatrixWithColors(this.paths);
   }
+
+  // private resetDisplayedPaths(displayedPathId: number): void {
+  //   if (displayedPathId !== undefined) {
+  //     this.displayedPaths = [this.paths[displayedPathId]];
+  //   } else {
+  //     this.displayedPaths = this.paths;
+  //   }
+  // }
 
   private initColorMatrix(): void {
     this.colorsMatrix = new Array(this.rowsQty)
@@ -46,15 +55,20 @@ export class AppComponent implements OnInit {
   private fillMatrixWithColors(paths: [number, number][][]): void {
     let pathIndex = 0;
     for (let path of paths) {
-      for (let segment of path) {
-        const x = segment[0];
-        const y = segment[1];
-        const actualColor = this.colorsMatrix[x][y];
-        if (actualColor === this.startedColor) {
-          this.colorsMatrix[x][y] = this.colors[pathIndex];
-        } else {
-          // this.colorsMatrix[x][y] = this.colors[pathIndex];
-          this.colorsMatrix[x][y] = this.overlappedPathColor;
+      const pathIsVisible =
+        this.actualDisplayedPathId === undefined ||
+        pathIndex == this.actualDisplayedPathId;
+      if (pathIsVisible) {
+        for (let segment of path) {
+          const x = segment[0];
+          const y = segment[1];
+          const actualColor = this.colorsMatrix[x][y];
+          if (actualColor === this.startedColor) {
+            this.colorsMatrix[x][y] = this.colors[pathIndex];
+          } else {
+            // this.colorsMatrix[x][y] = this.colors[pathIndex];
+            this.colorsMatrix[x][y] = this.overlappedPathColor;
+          }
         }
       }
       pathIndex++;
@@ -66,28 +80,19 @@ export class AppComponent implements OnInit {
   }
 
   getBlockTextStyles(x: number, y: number): string {
-    const centerFix = 'd-flex justify-content-center align-items-center';
-    return this.getBlockColor(x, y) === this.overlappedPathColor
-      ? `text-warning font-weight-bold ${centerFix}`
-      : '';
+    const isOverlap = this.getBlockColor(x, y) === this.overlappedPathColor;
+    return isOverlap ? `text-light` : ``;
   }
 
-  // getBlockTextContent(x: number, y: number): string {
-  //   return this.getBlockColor(x, y) === this.overlappedPathColor
-  //     ? this.overlapedPathContent
-  //     : 'o';
-  // }
-
   getBlockTextContent(x: number, y: number): string {
-    // const isOneOfEndpoints = InputData.enpoints.find(
-    //   (point: [number, number]) => point[0] === x && point[1] === y
-    // );
     const indexOfPath = this.getIndexOfPath([x, y]);
     if (indexOfPath !== -1) {
       return indexOfPath.toString();
     }
 
-    return this.getBlockColor(x, y) === this.overlappedPathColor ? 'x' : '';
+    return this.getBlockColor(x, y) === this.overlappedPathColor
+      ? this.overlapedPathContent
+      : '';
   }
 
   private getIndexOfPath(searchedPoint: [number, number]): number {
@@ -104,6 +109,14 @@ export class AppComponent implements OnInit {
       }
     }
     return -1;
+  }
+
+  onLegendBlockMouseEnter(pathIndex: number): void {
+    this.resetPaths(pathIndex);
+  }
+
+  onLegendBlockMouseLeave(): void {
+    this.resetPaths(undefined);
   }
 
   /* ------------------------------------------- Getters / setters ------------------------------------------- */

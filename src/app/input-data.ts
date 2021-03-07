@@ -198,8 +198,6 @@ export class InputData {
         lastPoint = newPoint;
       }
     }
-    console.log(points);
-
     return points;
   }
 
