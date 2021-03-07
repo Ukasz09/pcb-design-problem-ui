@@ -48,7 +48,7 @@ export class AppComponent implements OnInit {
   getBoardColor(x: number, y: number): string {
     return x - this.columnsQty / 2 === 0 || y - this.rowsQty / 2 === 0
       ? this.axisColor
-      : '';
+      : '#fff';
   }
 
   private fillMatrixWithColors(paths: [number, number][][]): void {
@@ -156,6 +156,6 @@ export class AppComponent implements OnInit {
 
   /* ------------------------------------------- Getters / setters ------------------------------------------- */
   get blockSize(): number {
-    return 100 / this.columnsQty;
+    return 100 / Math.max(this.columnsQty, this.rowsQty);
   }
 }

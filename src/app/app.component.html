@@ -1,49 +1,14 @@
 <div
   class="bg-secondary d-flex flex-column justify-content-center align-items-center vh-100"
 >
-  <div style="height: 900px; width: 1400px">
-    <div class="bg-dark rounded p-1 h-100 w-100">
-      <!-- ------------------------------------------- X indexes ------------------------------------------- -->
-      <!-- <div
-        class="d-flex flex-row rounded bg-light text-muted"
-        [style.height.%]="blockSize"
-      >
-        <div
-          class="d-flex border justify-content-center align-items-center"
-          [style.width.%]="blockSize"
-        >
-          <span class="w-75 h-75 text-center text-light rounded">*</span>
-        </div>
-        <div
-          *ngFor="let _ of [].constructor(columnsQty); let x = index"
-          class="d-flex border justify-content-center align-items-center"
-          [style.width.%]="blockSize"
-        >
-          <span
-            class="w-75 h-75 text-center rounded"
-            style="font-size: 0.7rem"
-            >{{ x - columnsQty / 2 }}</span
-          >
-        </div>
-      </div> -->
-
+  <div style="height: 900px; width: 900px">
+    <div class="h-100">
       <!-- ------------------------------------------- content ------------------------------------------- -->
       <div
         *ngFor="let _ of [].constructor(rowsQty); let y = index"
-        class="d-flex flex-row bg-light"
+        class="d-flex flex-row justify-content-center"
         [style.height.%]="blockSize"
       >
-        <!-- ----------------------- Y index ---------------------- -->
-        <!-- <div
-          class="border d-flex justify-content-center align-items-center"
-          [style.width.%]="blockSize"
-        >
-          <span
-            class="w-75 h-75 text-center rounded text-muted"
-            style="font-size: 0.7rem"
-            >{{ rowsQty / 2 - y }}</span
-          >
-        </div> -->
         <!-- ----------------------- content ---------------------- -->
         <div
           *ngFor="let _ of [].constructor(columnsQty); let x = index"
@@ -62,10 +27,10 @@
         </div>
       </div>
     </div>
-    <div class="d-flex flex-row flex-wrap p-1">
+    <div class="d-flex flex-row flex-wrap p-1 justify-content-center">
       <div
         *ngFor="let endpointPair of endpoints; let i = index"
-        class="border border-secondary rounded text-center my-1"
+        class="border border-secondary rounded text-center my-1 font-weight-bold"
         style="cursor: pointer"
         [style.background-color]="
           getBlockColor(
@@ -75,7 +40,7 @@
         "
         (mouseenter)="onLegendBlockMouseEnter(i)"
         (mouseleave)="onLegendBlockMouseLeave()"
-        [style.width.%]="blockSize"
+        [style.width.%]="blockSize * 2"
       >
         {{ i }}
       </div>
