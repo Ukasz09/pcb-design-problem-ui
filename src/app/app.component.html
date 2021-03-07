@@ -4,7 +4,7 @@
   <div style="height: 900px; width: 1400px">
     <div class="bg-dark rounded p-1 h-100 w-100">
       <!-- ------------------------------------------- X indexes ------------------------------------------- -->
-      <div
+      <!-- <div
         class="d-flex flex-row rounded bg-light text-muted"
         [style.height.%]="blockSize"
       >
@@ -25,7 +25,7 @@
             >{{ x - columnsQty / 2 }}</span
           >
         </div>
-      </div>
+      </div> -->
 
       <!-- ------------------------------------------- content ------------------------------------------- -->
       <div
@@ -34,7 +34,7 @@
         [style.height.%]="blockSize"
       >
         <!-- ----------------------- Y index ---------------------- -->
-        <div
+        <!-- <div
           class="border d-flex justify-content-center align-items-center"
           [style.width.%]="blockSize"
         >
@@ -43,7 +43,7 @@
             style="font-size: 0.7rem"
             >{{ rowsQty / 2 - y }}</span
           >
-        </div>
+        </div> -->
         <!-- ----------------------- content ---------------------- -->
         <div
           *ngFor="let _ of [].constructor(columnsQty); let x = index"
@@ -52,7 +52,7 @@
           [style.background-color]="getBoardColor(x, y)"
         >
           <span
-            class="w-75 h-75 text-center rounded d-flex justify-content-center align-items-center font-weight-bold"
+            class="w-75 h-75 text-center rounded d-flex justify-content-center align-items-center"
             style="font-size: 0.7rem"
             [ngClass]="getBlockTextStyles(x, y)"
             [style.background-color]="getBlockColor(x, y)"

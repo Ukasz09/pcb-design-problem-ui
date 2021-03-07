@@ -12,8 +12,8 @@ export class AppComponent implements OnInit {
   overlappedPathColor = '#343A41'; // make sure that no exist path with this color
   overlapedPathContent = 'x';
   axisColor = '#edeff4';
-  columnsQty = 25 * 2;
-  rowsQty = 25 * 2;
+  columnsQty = 20;
+  rowsQty = 20;
   colors = Constants.randomColors;
   colorsMatrix: string[][];
   paths: [number, number][][] = InputData.data;
@@ -24,6 +24,8 @@ export class AppComponent implements OnInit {
 
   /* ------------------------------------------- Methods ------------------------------------------- */
   ngOnInit(): void {
+    this.columnsQty *= 2;
+    this.rowsQty *= 2;
     this.resetPaths(undefined);
   }
 
@@ -59,24 +61,32 @@ export class AppComponent implements OnInit {
         for (let segment of path) {
           let x = segment[0];
           let y = segment[1];
-          // if (x < 0 || y < 0 || x >= this.rowsQty || y >= this.columnsQty) {
-          //   console.warn(`Block: ${x},${y} outsied map`);
-          // }
-          // else {
-          x += this.columnsQty / 2;
-          // y += this.rowsQty / 2;
-          y = -1 * (y - this.rowsQty / 2);
-          const actualColor = this.colorsMatrix[x][y];
-          if (actualColor === this.startedColor) {
-            this.colorsMatrix[x][y] = this.colors[pathIndex];
+          if (this.isOutsideMap(x, y)) {
+            console.error(`Block: ${x},${y} outsied map`);
           } else {
-            this.colorsMatrix[x][y] = this.overlappedPathColor;
+            x += this.columnsQty / 2;
+            // y += this.rowsQty / 2;
+            y = -1 * (y - this.rowsQty / 2);
+            const actualColor = this.colorsMatrix[x][y];
+            if (actualColor === this.startedColor) {
+              this.colorsMatrix[x][y] = this.colors[pathIndex];
+            } else {
+              this.colorsMatrix[x][y] = this.overlappedPathColor;
+            }
           }
-          // }
         }
       }
       pathIndex++;
     }
+  }
+
+  private isOutsideMap(x: number, y: number): boolean {
+    return (
+      x <= -this.rowsQty ||
+      y <= -this.columnsQty ||
+      x >= this.rowsQty ||
+      y >= this.columnsQty
+    );
   }
 
   getBlockColor(x: number, y: number): string {
@@ -85,7 +95,15 @@ export class AppComponent implements OnInit {
 
   getBlockTextStyles(x: number, y: number): string {
     const isOverlap = this.getBlockColor(x, y) === this.overlappedPathColor;
-    return isOverlap ? `text-light` : ``;
+    if (isOverlap) {
+      return 'text-light font-weight-bold';
+    }
+
+    if (this.getBoardColor(x, y) === this.axisColor) {
+      return 'text-muted';
+    }
+
+    return 'font-weight-bold';
   }
 
   getBlockTextContent(x: number, y: number): string {
@@ -99,8 +117,16 @@ export class AppComponent implements OnInit {
       return indexOfPath.toString();
     }
 
-    return this.getBlockColor(x, y) === this.overlappedPathColor
-      ? this.overlapedPathContent
+    if (this.getBlockColor(x, y) === this.overlappedPathColor) {
+      return this.overlapedPathContent;
+    }
+
+    if (x - this.columnsQty / 2 === 0) {
+      return (this.rowsQty / 2 - y).toString();
+    }
+
+    return y - this.rowsQty / 2 === 0
+      ? (x - this.columnsQty / 2).toString()
       : '';
   }
 
@@ -130,6 +156,6 @@ export class AppComponent implements OnInit {
 
   /* ------------------------------------------- Getters / setters ------------------------------------------- */
   get blockSize(): number {
-    return 100 / (this.columnsQty + 1); //+1 becouse of index no
+    return 100 / this.columnsQty;
   }
 }
