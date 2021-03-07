@@ -1,6 +1,5 @@
-import solutionDataJson from '../assets/data.json';
-// import solutionDataJson from '../../../../impl-1/PCB-problem/solution.json';
-import endpointsDataJson from '../assets/endpoints.json';
+import solutionDataJson from '../../../../impl-1/PCB-problem/solution.json';
+import endpointsDataJson from '../../../../impl-1/PCB-problem/parsed-data.json';
 export class InputData {
   // Change arrays into tuples and then change format [direction,stepSize] into points
   //
@@ -12,56 +11,19 @@ export class InputData {
   static data = InputData.parseDirectionStepSizeDataToPointsData(
     InputData.parseSolutionDataJson()
   );
+
   static endpoints: [
     [number, number],
     [number, number]
   ][] = InputData.parseEndpointsDataJson();
 
-  // static endpoints: [[number, number], [number, number]][] = [
-  //   [
-  //     [2, 7],
-  //     [9, 7],
-  //   ],
-  //   [
-  //     [3, 8],
-  //     [7, 6],
-  //   ],
-  //   [
-  //     [4, 4],
-  //     [5, 13],
-  //   ],
-  //   [
-  //     [5, 2],
-  //     [10, 12],
-  //   ],
-  //   [
-  //     [6, 6],
-  //     [6, 8],
-  //   ],
-  //   [
-  //     [7, 10],
-  //     [13, 10],
-  //   ],
-  //   [
-  //     [8, 2],
-  //     [8, 15],
-  //   ],
-  //   [
-  //     [10, 10],
-  //     [13, 6],
-  //   ],
-  // ];
-
   /* ------------------------------------------- Methods ------------------------------------------- */
-  private static parseEndpointsDataJson(delimiter = ';') {
+  private static parseEndpointsDataJson() {
     let data: string[] = endpointsDataJson;
-    // ommit board size
-    data.splice(0, 1);
     const parsedData = [];
-    for (let endpointsString of data) {
-      const strNumbers: string[] = endpointsString.split(delimiter);
-      const startPoint = [+strNumbers[0], +strNumbers[1]];
-      const endPoint = [+strNumbers[2], +strNumbers[3]];
+    for (let endpointsArr of data) {
+      const startPoint = [endpointsArr[0], endpointsArr[1]];
+      const endPoint = [endpointsArr[2], endpointsArr[3]];
       const pair = [startPoint, endPoint];
       parsedData.push(pair);
     }
