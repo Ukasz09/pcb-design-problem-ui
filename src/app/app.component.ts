@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   colors = Constants.randomColors;
   colorsMatrix: string[][];
   paths: [number, number][][] = InputData.data;
-  endpoints = InputData.enpoints;
+  endpoints = InputData.endpoints;
   actualDisplayedPathId = undefined;
 
   constructor() {}
@@ -52,11 +52,15 @@ export class AppComponent implements OnInit {
         for (let segment of path) {
           const x = segment[0];
           const y = segment[1];
-          const actualColor = this.colorsMatrix[x][y];
-          if (actualColor === this.startedColor) {
-            this.colorsMatrix[x][y] = this.colors[pathIndex];
+          if (x < 0 || y < 0 || x >= this.rowsQty || y >= this.columnsQty) {
+            console.warn(`Block: ${x},${y} outsied map`);
           } else {
-            this.colorsMatrix[x][y] = this.overlappedPathColor;
+            const actualColor = this.colorsMatrix[x][y];
+            if (actualColor === this.startedColor) {
+              this.colorsMatrix[x][y] = this.colors[pathIndex];
+            } else {
+              this.colorsMatrix[x][y] = this.overlappedPathColor;
+            }
           }
         }
       }
@@ -85,8 +89,8 @@ export class AppComponent implements OnInit {
   }
 
   private getIndexOfPath(searchedPoint: [number, number]): number {
-    for (let i = 0; i < InputData.enpoints.length; i++) {
-      const pairOfEndpoints = InputData.enpoints[i];
+    for (let i = 0; i < this.endpoints.length; i++) {
+      const pairOfEndpoints = this.endpoints[i];
       const startPointIsTheSame =
         pairOfEndpoints[0][0] === searchedPoint[0] &&
         pairOfEndpoints[0][1] === searchedPoint[1];
