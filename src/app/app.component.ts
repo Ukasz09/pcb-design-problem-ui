@@ -16,7 +16,6 @@ export class AppComponent implements OnInit {
   colors = Constants.randomColors;
   colorsMatrix: string[][];
   paths: [number, number][][] = InputData.data;
-  // displayedPaths = this.paths;
   endpoints = InputData.enpoints;
   actualDisplayedPathId = undefined;
 
@@ -34,17 +33,8 @@ export class AppComponent implements OnInit {
   private resetPaths(displayedPathId: number): void {
     this.actualDisplayedPathId = displayedPathId;
     this.initColorMatrix();
-    // this.resetDisplayedPaths(displayedPathId);
     this.fillMatrixWithColors(this.paths);
   }
-
-  // private resetDisplayedPaths(displayedPathId: number): void {
-  //   if (displayedPathId !== undefined) {
-  //     this.displayedPaths = [this.paths[displayedPathId]];
-  //   } else {
-  //     this.displayedPaths = this.paths;
-  //   }
-  // }
 
   private initColorMatrix(): void {
     this.colorsMatrix = new Array(this.rowsQty)
@@ -66,7 +56,6 @@ export class AppComponent implements OnInit {
           if (actualColor === this.startedColor) {
             this.colorsMatrix[x][y] = this.colors[pathIndex];
           } else {
-            // this.colorsMatrix[x][y] = this.colors[pathIndex];
             this.colorsMatrix[x][y] = this.overlappedPathColor;
           }
         }

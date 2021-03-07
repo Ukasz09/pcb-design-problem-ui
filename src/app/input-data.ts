@@ -1,49 +1,7 @@
 export class InputData {
-  // data -> path[]
+  // data -> [startPoint, path[]][]
   // path -> segment[]
-  // segment -> [x,y]
-  // static data = [
-  //   [
-  //     [3, 8],
-  //     [3, 9],
-  //     [4, 9],
-  //     [5, 9],
-  //     [6, 9],
-  //     [7, 9],
-  //   ],
-  //   [
-  //     [6, 6],
-  //     [6, 7],
-  //     [6, 8],
-  //     [6, 9],
-  //     [6, 10],
-  //   ],
-  //   [
-  //     [9, 6],
-  //     [9, 7],
-  //     [9, 8],
-  //   ],
-  // ];
-
-  // static data = [
-  //   InputData.changeDirectionStepSizeDataToPoint(
-  //     [2, 7],
-  //     [
-  //       [2, 5],
-  //       [2, 2],
-  //     ]
-  //   ),
-  //   InputData.changeDirectionStepSizeDataToPoint(
-  //     [3, 8],
-  //     [
-  //       [2, 2],
-  //       [3, 1],
-  //       [1, 1],
-  //       [3, 1],
-  //       [2, 1],
-  //     ]
-  //   ),
-  // ];
+  // segment / startpoint -> [x,y]
   static data = InputData.parseDirectionStepSizeDataToPointsData([
     [
       [2, 7],
