@@ -1,7 +1,8 @@
 <div
-  class="bg-secondary d-flex flex-column justify-content-center align-items-center vh-100"
+  class="bg-secondary d-flex flex-column justify-content-center align-items-center"
+  style="height: 1000px"
 >
-  <div style="height: 900px; width: 900px">
+  <div style="height: 900px; width: 1400px">
     <div class="h-100">
       <!-- ------------------------------------------- content ------------------------------------------- -->
       <div
@@ -26,23 +27,23 @@
           </span>
         </div>
       </div>
-    </div>
-    <div class="d-flex flex-row flex-wrap p-1 justify-content-center">
-      <div
-        *ngFor="let endpointPair of endpoints; let i = index"
-        class="border border-secondary rounded text-center my-1 font-weight-bold"
-        style="cursor: pointer"
-        [style.background-color]="
-          getBlockColor(
-            endpointPair[0][0] + columnsQty / 2,
-            -1 * (endpointPair[0][1] - rowsQty / 2)
-          )
-        "
-        (mouseenter)="onLegendBlockMouseEnter(i)"
-        (mouseleave)="onLegendBlockMouseLeave()"
-        [style.width.%]="blockSize * 2"
-      >
-        {{ i }}
+      <div class="d-flex flex-row flex-wrap p-1 justify-content-center">
+        <div
+          *ngFor="let endpointPair of endpoints; let i = index"
+          class="border border-secondary rounded text-center my-1 font-weight-bold"
+          style="cursor: pointer"
+          [style.background-color]="
+            getBlockColor(
+              endpointPair[0][0] + columnsQty / 2,
+              -1 * (endpointPair[0][1] - rowsQty / 2)
+            )
+          "
+          (mouseenter)="onLegendBlockMouseEnter(i)"
+          (mouseleave)="onLegendBlockMouseLeave()"
+          [style.width.%]="blockSize * 2"
+        >
+          {{ i }}
+        </div>
       </div>
     </div>
   </div>

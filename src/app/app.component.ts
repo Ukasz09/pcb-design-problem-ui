@@ -12,8 +12,8 @@ export class AppComponent implements OnInit {
   overlappedPathColor = '#343A41'; // make sure that no exist path with this color
   overlapedPathContent = 'x';
   axisColor = '#edeff4';
-  columnsQty = 20;
-  rowsQty = 20;
+  columnsQty = 35; //35
+  rowsQty = 35; //35
   colors = Constants.randomColors;
   colorsMatrix: string[][];
   paths: [number, number][][] = InputData.data;
@@ -40,9 +40,9 @@ export class AppComponent implements OnInit {
   }
 
   private initColorMatrix(): void {
-    this.colorsMatrix = new Array(this.rowsQty)
+    this.colorsMatrix = new Array(this.columnsQty)
       .fill('')
-      .map(() => new Array(this.columnsQty).fill(this.startedColor));
+      .map(() => new Array(this.rowsQty).fill(this.startedColor));
   }
 
   getBoardColor(x: number, y: number): string {
