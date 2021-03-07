@@ -25,31 +25,167 @@ export class InputData {
   //   ],
   // ];
 
-  static data = [
-    InputData.changeDirectionStepSizeDataToPoint(
+  // static data = [
+  //   InputData.changeDirectionStepSizeDataToPoint(
+  //     [2, 7],
+  //     [
+  //       [2, 5],
+  //       [2, 2],
+  //     ]
+  //   ),
+  //   InputData.changeDirectionStepSizeDataToPoint(
+  //     [3, 8],
+  //     [
+  //       [2, 2],
+  //       [3, 1],
+  //       [1, 1],
+  //       [3, 1],
+  //       [2, 1],
+  //     ]
+  //   ),
+  // ];
+  static data = InputData.parseDirectionStepSizeDataToPointsData([
+    [
       [2, 7],
       [
-        [2, 3],
         [2, 4],
-      ]
-    ),
-    InputData.changeDirectionStepSizeDataToPoint(
+        [2, 3],
+      ],
+    ],
+    [
       [3, 8],
       [
-        [2, 4],
         [3, 2],
-      ]
-    ),
+        [2, 2],
+        [1, 1],
+        [2, 3],
+        [3, 1],
+        [0, 1],
+      ],
+    ],
+    [
+      [4, 4],
+      [
+        [2, 2],
+        [0, 1],
+        [1, 4],
+        [1, 5],
+      ],
+    ],
+    [
+      [5, 2],
+      [
+        [1, 2],
+        [3, 1],
+        [1, 5],
+        [1, 2],
+        [1, 2],
+        [2, 2],
+        [2, 1],
+        [2, 2],
+      ],
+    ],
+    [[6, 6], [[1, 2]]],
+    [
+      [7, 10],
+      [
+        [3, 2],
+        [1, 1],
+        [2, 1],
+        [3, 2],
+        [3, 1],
+        [3, 1],
+        [1, 4],
+        [1, 4],
+        [2, 5],
+        [3, 3],
+      ],
+    ],
+    [
+      [8, 2],
+      [
+        [1, 4],
+        [1, 1],
+        [1, 3],
+        [1, 3],
+        [1, 2],
+      ],
+    ],
+    [
+      [10, 10],
+      [
+        [0, 2],
+        [3, 1],
+        [3, 3],
+        [2, 5],
+      ],
+    ],
+  ]);
+
+  static enpoints: [[number, number], [number, number]][] = [
+    [
+      [2, 7],
+      [9, 7],
+    ],
+    [
+      [3, 8],
+      [7, 6],
+    ],
+    [
+      [4, 4],
+      [5, 13],
+    ],
+    [
+      [5, 2],
+      [10, 12],
+    ],
+    [
+      [6, 6],
+      [6, 8],
+    ],
+    [
+      [7, 10],
+      [13, 10],
+    ],
+    [
+      [8, 2],
+      [8, 15],
+    ],
+    [
+      [10, 10],
+      [13, 6],
+    ],
   ];
+
+  /* ------------------------------------------- Methods ------------------------------------------- */
+  /**
+   *
+   * @param data List of tuples [startedPoint,path]
+   */
+  static parseDirectionStepSizeDataToPointsData(
+    data: [[number, number], [number, number][]][]
+  ): [number, number][][] {
+    const listOfPathPoints: [number, number][][] = [];
+    for (let endpointSolution of data) {
+      const startedPoint = endpointSolution[0];
+      const path = endpointSolution[1];
+      const pointsForSolution = InputData.changeDirectionStepSizeDataToPoint(
+        startedPoint,
+        path
+      );
+      listOfPathPoints.push(pointsForSolution);
+    }
+    return listOfPathPoints;
+  }
 
   static changeDirectionStepSizeDataToPoint(
     startedPoint: [number, number],
-    data: [Direction, number][]
+    path: [number, number][]
   ): [number, number][] {
     const points: [number, number][] = [];
     points.push(startedPoint);
     let lastPoint = startedPoint;
-    for (let d of data) {
+    for (let d of path) {
       const direction = d[0];
       const stepSize = d[1];
       const incValue: [number, number] = this.getPositionIncValue(direction);
@@ -86,11 +222,4 @@ export class InputData {
       }
     }
   }
-}
-
-enum Direction {
-  Left = 0,
-  Up = 1,
-  Right = 2,
-  Down = 3,
 }
