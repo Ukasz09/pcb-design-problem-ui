@@ -12,8 +12,8 @@ export class AppComponent implements OnInit {
   overlappedPathColor = '#343A41'; // make sure that no exist path with this color
   overlapedPathContent = 'x';
   axisColor = '#edeff4';
-  columnsQty = 35; //35
-  rowsQty = 35; //35
+  columnsQty = 20; //35
+  rowsQty = 20; //35
   colors = Constants.randomColors;
   colorsMatrix: string[][];
   paths: [number, number][][] = InputData.data;
