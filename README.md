@@ -6,6 +6,8 @@ Visualization of PCB routes
 
 [PCB Routing algorithm](https://github.com/Ukasz09/pcb-design-problem-ai)
 
+---
+
 ### Demo
 
 ![](https://raw.githubusercontent.com/Ukasz09/pcb-design-problem-ui/master/readme/demo-3.png)
